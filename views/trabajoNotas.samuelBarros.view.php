@@ -41,8 +41,8 @@
 
 
                     <div class="mb-3">
-                        <label for="exampleFormControlTextarea1">Inserta JSON</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" name="textarea" rows="3"></textarea>
+                        <label for="json">Inserta JSON</label>
+                        <textarea class="form-control" id="json" name="json" rows="3"></textarea>
                     </div>
                     <div class="mb-3">
                         <input type="submit" value="Enviar" name="enviar" class="btn btn-primary" />
