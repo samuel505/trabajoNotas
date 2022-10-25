@@ -17,69 +17,121 @@
             <div class="card-body">
                 <!--<form action="./?sec=formulario" method="post">                   -->
                 <form method="post" action="./?sec=trabajoNotas.samuelBarros">
+                    <?php if (isset($data['resultado'])) { ?>
+                        <div class="col-12">
+                            <table class="table table-striped">
+                                <thead>
 
-                    <div class="col-12">
-                        <table class="table">
-                            <thead>
+                                    <th>Módulo</th>
+                                    <th>Media</th>
+                                    <th>Aprobados</th>
+                                    <th>Suspensos</th>
+                                    <th>Máximo</th>
+                                    <th>Mínimo</th>
 
-                                <th>Módulo</th>
-                                <th>Media</th>
-                                <th>Aprobados</th>
-                                <th>Suspensos</th>
-                                <th>Máximo</th>
-                                <th>Mínimo</th>
+                                </thead>
+                                <tbody>
 
-                            </thead>
-                            <tbody>
-                               
                                     <?php foreach ($data['resultado']['asignaturas'] as $asignatura => $value) { ?>
                                         <tr>
-                                        <td><?php  echo $asignatura ?></td>
-                                        <td><?php echo $value['media'] ?></td>
-                                        <td><?php echo $value['aprobados']  ?></td>
-                                        <td><?php echo $value['suspensos']  ?></td>
-                                        <td><?php echo implode(": ",$value['max'])  ?></td>
-                                        <td><?php echo implode(": ",$value['min'])  ?></td>
+                                            <td><?php echo $asignatura ?></td>
+                                            <td><?php echo $value['media'] ?></td>
+                                            <td><?php echo $value['aprobados']  ?></td>
+                                            <td><?php echo $value['suspensos']  ?></td>
+                                            <td><?php echo implode(": ", $value['max'])  ?></td>
+                                            <td><?php echo implode(": ", $value['min'])  ?></td>
                                         </tr>
                                     <?php } ?>
-                                
-                            </tbody>
 
-                        </table>
+                                </tbody>
 
+                            </table>
+                        </div>
+                    <?php } ?>
 
-                    </div>
+                    <?php if (isset($data['resultado'])) { ?>
+                        <div class=" col-12 col-lg-6">
+                            <div class="alert alert-success">
+                                <ul>
+                                    <p>Aprobado todo</p>
+                                    <?php
+                                    foreach ($data['resultado']['alumnos']  as $nombre => $datos) {
+                                        if ($datos['suspensos'] == 0) {
+                                            echo "<li>$nombre</li>";
+                                        }
+                                    }
+                                    ?>
+                                </ul>
+                            </div>
+                        </div>
 
+                        <div class=" col-12 col-lg-6">
+                            <div class="alert alert-warning">
+                                <ul>
+                                <p>Suspendido al menos una asignatura</p>
+                                    <?php
+                                    foreach ($data['resultado']['alumnos'] as $nombre => $datos) {
+                                        if ($datos['suspensos'] >= 1) {
+                                            echo "<li>$nombre</li>";
+                                        }
+                                    }
+                                    ?>
+                                </ul>
 
-                    <div class="alert alert-success col-12 col-lg-6">
+                            </div>
+                        </div>
 
+                        <div class=" col-12 col-lg-6">
+                            <div class="alert alert-info">
+                                <ul>
+                                    <p>Promocionan</p>
+                                    <?php
+                                    foreach ($data['resultado']['alumnos']  as $nombre => $datos) {
+                                        if ($datos['suspensos'] <= 1) {
+                                            echo "<li>$nombre</li>";
+                                        }
+                                    }
+                                    ?>
+                                </ul>
+                            </div>
+                        </div>
 
-                    </div>
+                        <div class=" col-12 col-lg-6">
 
-                    <div class="alert alert-warning col-12 col-lg-6">
+                            <div class="alert alert-danger">
+                                <ul>
+                                    <p>No promocionan</p>
+                                    <?php
+                                    foreach ($data['resultado']['alumnos']  as $nombre => $datos) {
+                                        if ($datos['suspensos'] >= 2) {
+                                            echo "<li>$nombre</li>";
+                                        }
+                                    }
+                                    ?>
+                                </ul>
 
+                            </div>
 
-                    </div>
+                        </div>
 
-                    <div class="alert alert-info col-12 col-lg-6">
-
-
-                    </div>
-
-                    <div class="alert alert-danger col-12 col-lg-6">
-
-
-                    </div>
-
+                    <?php  } ?>
 
 
                     <div class="mb-3">
                         <label for="json">Inserta JSON</label>
-                        <textarea class="form-control" id="json" name="json" rows="5"></textarea>
+                        <textarea class="form-control" id="json" name="json" rows="5"><?php echo isset($data['input']) ?$data['input'] : ""    ?></textarea>
                     </div>
 
 
-                    <p class="text-danger"><?php isset($data['errores']) ? $data['errores'] : "" ?></p>
+                    <p class="text-danger"><?php
+                                            $string = "";
+                                            if (isset($data['errores'])) {
+                                                $errores = $data['errores'];
+                                                foreach ($errores as $key => $value) {
+                                                    $string .= $value . "<br>";
+                                                }
+                                            }
+                                            echo $string; ?></p>
 
 
 
