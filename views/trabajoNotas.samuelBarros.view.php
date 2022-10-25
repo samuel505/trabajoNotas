@@ -18,22 +18,55 @@
                 <!--<form action="./?sec=formulario" method="post">                   -->
                 <form method="post" action="./?sec=trabajoNotas.samuelBarros">
 
-                    <div class="alert alert-success">
+                    <div class="col-12">
+                        <table class="table">
+                            <thead>
+
+                                <th>Módulo</th>
+                                <th>Media</th>
+                                <th>Aprobados</th>
+                                <th>Suspensos</th>
+                                <th>Máximo</th>
+                                <th>Mínimo</th>
+
+                            </thead>
+                            <tbody>
+                               
+                                    <?php foreach ($data['resultado']['asignaturas'] as $asignatura => $value) { ?>
+                                        <tr>
+                                        <td><?php  echo $asignatura ?></td>
+                                        <td><?php echo $value['media'] ?></td>
+                                        <td><?php echo $value['aprobados']  ?></td>
+                                        <td><?php echo $value['suspensos']  ?></td>
+                                        <td><?php echo implode(": ",$value['max'])  ?></td>
+                                        <td><?php echo implode(": ",$value['min'])  ?></td>
+                                        </tr>
+                                    <?php } ?>
+                                
+                            </tbody>
+
+                        </table>
 
 
                     </div>
 
-                    <div class="alert alert-warning">
+
+                    <div class="alert alert-success col-12 col-lg-6">
 
 
                     </div>
 
-                    <div class="alert alert-info">
+                    <div class="alert alert-warning col-12 col-lg-6">
 
 
                     </div>
 
-                    <div class="alert alert-danger">
+                    <div class="alert alert-info col-12 col-lg-6">
+
+
+                    </div>
+
+                    <div class="alert alert-danger col-12 col-lg-6">
 
 
                     </div>
@@ -42,8 +75,14 @@
 
                     <div class="mb-3">
                         <label for="json">Inserta JSON</label>
-                        <textarea class="form-control" id="json" name="json" rows="3"></textarea>
+                        <textarea class="form-control" id="json" name="json" rows="5"></textarea>
                     </div>
+
+
+                    <p class="text-danger"><?php isset($data['errores']) ? $data['errores'] : "" ?></p>
+
+
+
                     <div class="mb-3">
                         <input type="submit" value="Enviar" name="enviar" class="btn btn-primary" />
                     </div>
