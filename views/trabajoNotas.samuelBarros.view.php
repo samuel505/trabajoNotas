@@ -7,17 +7,7 @@
 <!-- Content Row -->
 
 <div class="row">
-
-    <div class="col-12">
-        <div class="card shadow mb-4">
-            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary"><?php echo $data['div_titulo']; ?></h6>
-            </div>
-            <!-- Card Body -->
-            <div class="card-body">
-                <!--<form action="./?sec=formulario" method="post">                   -->
-                <form method="post" action="./?sec=trabajoNotas.samuelBarros">
-                    <?php if (isset($data['resultado'])) { ?>
+<?php if (isset($data['resultado'])) { ?>
                         <div class="col-12">
                             <table class="table table-striped">
                                 <thead>
@@ -49,8 +39,10 @@
                         </div>
                     <?php } ?>
 
+
                     <?php if (isset($data['resultado'])) { ?>
-                        <div class=" col-12 col-lg-6">
+                        <div class="row">
+                        <div class="col-12 col-lg-6">
                             <div class="alert alert-success">
                                 <ul>
                                     <p>Aprobado todo</p>
@@ -65,10 +57,10 @@
                             </div>
                         </div>
 
-                        <div class=" col-12 col-lg-6">
+                        <div class="col-12 col-lg-6">
                             <div class="alert alert-warning">
                                 <ul>
-                                <p>Suspendido al menos una asignatura</p>
+                                    <p>Suspendido al menos una asignatura</p>
                                     <?php
                                     foreach ($data['resultado']['alumnos'] as $nombre => $datos) {
                                         if ($datos['suspensos'] >= 1) {
@@ -77,11 +69,12 @@
                                     }
                                     ?>
                                 </ul>
-
                             </div>
                         </div>
 
-                        <div class=" col-12 col-lg-6">
+
+
+                        <div class="col-12 col-lg-6">
                             <div class="alert alert-info">
                                 <ul>
                                     <p>Promocionan</p>
@@ -96,8 +89,7 @@
                             </div>
                         </div>
 
-                        <div class=" col-12 col-lg-6">
-
+                        <div class="col-12 col-lg-6">
                             <div class="alert alert-danger">
                                 <ul>
                                     <p>No promocionan</p>
@@ -109,17 +101,27 @@
                                     }
                                     ?>
                                 </ul>
-
                             </div>
-
-                        </div>
+                        </div></div>
 
                     <?php  } ?>
+    <div class="col-12">
+        
+        <div class="card shadow mb-4">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary"><?php echo $data['div_titulo']; ?></h6>
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+                <!--<form action="./?sec=formulario" method="post">        
+                               -->
+                               
 
+                <form method="post" action="./?sec=trabajoNotas.samuelBarros">
 
                     <div class="mb-3">
                         <label for="json">Inserta JSON</label>
-                        <textarea class="form-control" id="json" name="json" rows="5"><?php echo isset($data['input']) ?$data['input'] : ""    ?></textarea>
+                        <textarea class="form-control" id="json" name="json" rows="5"><?php echo isset($data['input']) ? $data['input'] : ""    ?></textarea>
                     </div>
 
 
@@ -128,12 +130,11 @@
                                             if (isset($data['errores'])) {
                                                 $errores = $data['errores'];
                                                 foreach ($errores as $key => $value) {
+
                                                     $string .= $value . "<br>";
                                                 }
                                             }
                                             echo $string; ?></p>
-
-
 
                     <div class="mb-3">
                         <input type="submit" value="Enviar" name="enviar" class="btn btn-primary" />
